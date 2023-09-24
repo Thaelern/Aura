@@ -10,6 +10,14 @@ AAuraPlayerController::AAuraPlayerController()
 	bReplicates = true;
 }
 
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+	CursorTrace();
+
+	
+}
+
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -29,7 +37,6 @@ void AAuraPlayerController::BeginPlay()
 	InputModeData.SetHideCursorDuringCapture(false);
 	SetInputMode(InputModeData);
 }
-
 void AAuraPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
@@ -37,7 +44,6 @@ void AAuraPlayerController::SetupInputComponent()
 
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::Move); // Binding the MoveAction. This is a public var. Setting it from the BP in editor
 }
-
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {
 	const FVector2d InputAxisVector = InputActionValue.Get<FVector2d>(); // Gets both XY axis values 
@@ -51,6 +57,70 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection,InputAxisVector.X);
+	}
+	
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, CursorHit);
+	if (!CursorHit.bBlockingHit) return;
+
+	LastActor = ThisActor;
+	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
+
+	/*
+	 * Line trace from cursor. There are several scenarios:
+	 * A: LastActor is null && ThisActor is null
+	 *			-Do nothing
+	 *
+	 *	B: Last Actor is null %% ThisActor is Valid
+	 *			- Highlight ThisActor
+	 *
+	 *	C: Last Actor is valid && ThisActor is null
+	 *			- LastActor UnHighLight
+	 *
+	 *	D: Both Actors are valid, But lastActor != ThisActor
+	 *			- LastActor UnHighLight, ThisActor HighLight
+	 *
+	 *	E: Both Actors are valid and are the same actor
+	 *			- Do nothing
+	 */
+
+	if(LastActor == nullptr)
+	{
+		if(ThisActor != nullptr)
+		{
+			// Case B.
+			ThisActor->HightLightActor();
+		}
+		else
+		{
+			// Case A.  both are null, do nothing.
+		}
+	}
+	else // LastActor is valid
+	{
+		if(ThisActor == nullptr)
+		{
+			// Case C.
+			LastActor->UnHighLightActor();
+		}
+		else // both actors are valid
+		{
+			if(LastActor != ThisActor)
+			{
+				// Case D.
+				LastActor->UnHighLightActor();
+				ThisActor->UnHighLightActor();
+			}
+			else
+			{
+				// Case E.
+				// Do Nothing
+			}
+		}
 	}
 	
 }
