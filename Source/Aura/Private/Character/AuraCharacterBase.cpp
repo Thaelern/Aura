@@ -12,7 +12,13 @@ AAuraCharacterBase::AAuraCharacterBase()
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
-void AAuraCharacterBase::BeginPlay()
+ UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
+ {
+	return AbilitySystemComponent;
+ }
+
+
+ void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	

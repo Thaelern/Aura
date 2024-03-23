@@ -4,6 +4,8 @@
 #include "Character/AuraEnemy.h"
 
 #include "Aura/Aura.h"
+#include "Aura/AbilitySystem/AuraAbilitySystem.h"
+#include "Aura/AbilitySystem/AuraAttributeSet.h"
 
 AAuraEnemy::AAuraEnemy()
 {
@@ -12,6 +14,11 @@ AAuraEnemy::AAuraEnemy()
 	{
 		Weapon->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 	}
+
+	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystem>("AbilitySystemComponent");
+	AbilitySystemComponent-> SetIsReplicated(true);
+
+	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 	
 }
 
