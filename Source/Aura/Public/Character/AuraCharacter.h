@@ -20,8 +20,10 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
 public:
 	AAuraCharacter(); // Constructor
 
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
 protected:
-	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Camera")
@@ -33,6 +35,8 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	FRotator DefaultRotationRate = FRotator(0.f, 400.f, 0.f);
+
+	void InitAbilityActorInfo();
 	
 	
 };
