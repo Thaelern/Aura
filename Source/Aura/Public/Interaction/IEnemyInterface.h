@@ -23,6 +23,6 @@ class AURA_API IEnemyInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	virtual void HightLightActor() = 0; // The zero means no definition is created in the base class. Each child deriving must override the function with its own version
+	virtual void HightLightActor() = 0; // The zero means no definition is created in the base class. Each child deriving must override the function with its own version. Think of BPI
 	virtual void UnHighLightActor() = 0;
 };
