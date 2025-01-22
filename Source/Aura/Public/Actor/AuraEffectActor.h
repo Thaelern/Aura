@@ -27,6 +27,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS | Applied Effects");
 	TSubclassOf<UGameplayEffect> InstantGameplayEffect;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS | Applied Effects");
+	TSubclassOf<UGameplayEffect> DurationGameplayEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS | Applied Effects");
+	TSubclassOf<UGameplayEffect> InfiniteGameplayEffect;
+	
+
 	
 	
 
