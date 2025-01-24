@@ -24,5 +24,9 @@ AAuraCharacterBase::AAuraCharacterBase()
 	
 }
 
+ void AAuraCharacterBase::InitAbilityActorInfo()
+ {
+ }
+
 
 

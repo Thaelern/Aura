@@ -100,7 +100,7 @@ void UAuraAttributeSet::SetEffectPRoperties(const struct FGameplayEffectModCallb
 }
 
 void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
-{
+{	
 	Super::PostGameplayEffectExecute(Data);
 
 	FEffectProperties Props;

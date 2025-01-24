@@ -34,5 +34,7 @@ public:
 	bool bShouldHighLight = false;
 
 	void BeginPlay() override;
+
+	virtual void InitAbilityActorInfo() override;
 	
 };

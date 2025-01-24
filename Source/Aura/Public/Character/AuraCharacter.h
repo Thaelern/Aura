@@ -37,7 +37,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	FRotator DefaultRotationRate = FRotator(0.f, 400.f, 0.f);
 
-	void InitAbilityActorInfo();
+	virtual void InitAbilityActorInfo();
 	
 	
 };
